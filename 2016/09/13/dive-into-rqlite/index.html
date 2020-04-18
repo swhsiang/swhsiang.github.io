@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="browsermode" content="application">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HSIANG">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="msapplication-navbutton-color" content="#666666">
+<meta name="format-detection" content="telephone=no">
+
+  <link rel="apple-touch-icon" sizes="72x72" href="/favicon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicon.png">
+
+
+  <meta name="subtitle" content="An entrepreneur">
+
+
+
+
+  <meta name="keywords" content="raft, distributed_computing, nlvi">
+
+
+<link rel="apple-touch-startup-image" media="(device-width: 375px)" href="assets/apple-launch-1125x2436.png">
+<link rel="apple-touch-startup-image" media="(orientation: landscape)" href="assets/apple-touch-startup-image-2048x1496.png">
+<link rel="stylesheet" href="/style/style.css">
+<script>
+  var nlviconfig = {
+    title: "HSIANG",
+    author: "Shih, Wen-Hsiang",
+    baseUrl: "/",
+    theme: {
+      scheme: "banderole",
+      lightbox: true,
+      animate: false,
+      search: true,
+      friends: false,
+      reward: false,
+      pjax: false,
+      lazy: false,
+      toc: false
+    }
+  }
+</script>
+
+
+
+
+    <link rel="stylesheet" href="/script/lib/lightbox/css/lightbox.min.css">
+
+
+
+
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+@font-face {
+  font-family: "Allura";
+  src: url('/font/allura/allura.ttf');
+}
+</style>
+
+  <title> Dive into rqlite 1 · HSIANG </title>
+</head>
+<body>
+  <div class="container">
+    <header class="header" id="header">
+  <div class="header-wrapper">
+    <div class="logo">
+  <div class="logo-inner syuanpi tvIn" style="display:none;">
+    <h1><a href="/">HSIANG</a></h1>
+    
+      <span id="subtitle">An entrepreneur</span>
+    
+  </div>
+</div>
+
+    <nav class="main-nav">
+  
+  <ul class="main-nav-list syuanpi tvIn">
+  
+    <li class="menu-item">
+      <a href="javascript:;" id="search-btn" aria-label="Search">
+        <i class="iconfont icon-search"></i>
+      </a>
+    </li>
+  
+  
+  
+    
+  
+    <li class="menu-item">
+      <a href="/" id="Home">
+        <span class="base-name">
+          
+            HOME
+          
+        </span>
+      </a>
+    </li>
+  
+  
+    
+  
+    <li class="menu-item">
+      <a href="/archives" id="Archives">
+        <span class="base-name">
+          
+            ARCHIVES
+          
+        </span>
+      </a>
+    </li>
+  
+  
+    
+  
+    <li class="menu-item">
+      <a href="/tags" id="Tags">
+        <span class="base-name">
+          
+            TAGS
+          
+        </span>
+      </a>
+    </li>
+  
+  
+    
+  
+    <li class="menu-item">
+      <a href="/about" id="About">
+        <span class="base-name">
+          
+            ABOUT
+          
+        </span>
+      </a>
+    </li>
+  
+  
+    
+  
+    <li class="menu-item">
+      <a href="/atom.xml" id="Rss">
+        <span class="base-name">
+          
+            RSS
+          
+        </span>
+      </a>
+    </li>
+  
+  
+  </ul>
+  
+</nav>
+
+  </div>
+</header>
+<div class="mobile-header" id="mobile-header">
+  <div class="mobile-header-nav">
+    <div class="mobile-header-item" id="mobile-left">
+      <div class="header-menu-item">
+        <div class="header-menu-line"></div>
+      </div>
+    </div>
+    <h1 class="mobile-header-title">
+      <a href="/">HSIANG</a>
+    </h1>
+    <div class="mobile-header-item"></div>
+  </div>
+  <div class="mobile-header-body">
+    <ul class="mobile-header-list">
+      
+        <li class="mobile-nav-item syuanpi fadeInRightShort back-0">
+          <a href="/">
+            
+              HOME
+            
+          </a>
+        </li>
+      
+        <li class="mobile-nav-item syuanpi fadeInRightShort back-1">
+          <a href="/archives">
+            
+              ARCHIVES
+            
+          </a>
+        </li>
+      
+        <li class="mobile-nav-item syuanpi fadeInRightShort back-2">
+          <a href="/tags">
+            
+              TAGS
+            
+          </a>
+        </li>
+      
+        <li class="mobile-nav-item syuanpi fadeInRightShort back-3">
+          <a href="/about">
+            
+              ABOUT
+            
+          </a>
+        </li>
+      
+        <li class="mobile-nav-item syuanpi fadeInRightShort back-4">
+          <a href="/atom.xml">
+            
+              RSS
+            
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+    <div class="container-inner" style="display:none;">
+      <main class="main" id="main">
+        <div class="main-wrapper">
+          
+    
+  
+  <article class="
+  post
+   is_post 
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi fadeInRightShort back-1">
+        <div class="post-time-wrapper">
+          
+          <time>2016-09-14</time>
+          
+        </div>
+      </div>
+      <h2 class="post-title syuanpi fadeInRightShort back-2">
+        
+          Dive into rqlite 1
+        
+      </h2>
+    </header>
+    <div class="post-content syuanpi fadeInRightShort back-3">
+      
+        <p><img src="https://github.com/rqlite/rqlite/blob/master/DOC/logo-text.png?raw=true" alt="rqlite"></p>
+<h2 id="Structure-Of-This-Post"><a href="#Structure-Of-This-Post" class="headerlink" title="Structure Of This Post:"></a>Structure Of This Post:</h2><ul>
+<li>Purpose.</li>
+<li>Explanation of terms.</li>
+<li>Dive into source code.</li>
+</ul>
+<h2 id="WHY-We-Want-to-Study-This"><a href="#WHY-We-Want-to-Study-This" class="headerlink" title="WHY We Want to Study This?"></a>WHY We Want to Study This?</h2><p>Distributed computing is a hot topic of computer science. Studying any implementation of real projects is a good start. We can learn how to organize a project and how to integrate different libraries, packages, and algorithms into one project.</p>
+<a id="more"></a>
+<h2 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h2><p>Before we start to dive into the source code of <a href="https://github.com/rqlite/rqlite" target="_blank" rel="noopener">rqlite</a>, we need to understand basic concepts of this project.</p>
+<h3 id="Distributed-Computing"><a href="#Distributed-Computing" class="headerlink" title="Distributed Computing"></a>Distributed Computing</h3><ul>
+<li>Description:<blockquote><p><strong><em>Distributed Computing</em></strong> is a field of computer science that studies distributed systems.</p>
+<p>In distributed computing, a problem is divided into many tasks, each of which is solved by one or more computers,[3] which communicate with each other by message passing.</p>
+<p>Three significant characteristics of distributed systems are: concurrency of components, lack of a global clock, and independent failure of components. Examples of distributed systems vary from SOA-based systems to massively multiplayer online games to peer-to-peer applications.</p>
+<footer><strong>Wikipedia --</strong><cite><a href="https://en.wikipedia.org/wiki/Distributed_computing" target="_blank" rel="noopener">Distributed Computing</a></cite></footer></blockquote>
+</li>
+</ul>
+<h3 id="Raft"><a href="#Raft" class="headerlink" title="Raft"></a>Raft</h3><ul>
+<li><p><a href="https://raft.github.io/" target="_blank" rel="noopener">Home page</a></p>
+</li>
+<li><p>Description:</p>
+<blockquote><p><strong><em>Raft</em></strong> is a consensus algorithm designed as an alternative to <a href="http://bit.ly/2cHR8M8" target="_blank" rel="noopener">Paxos</a>. It was meant to be more understandable than Paxos by means of separation of logic, but it is also formally proven safe and offers some new features.</p>
+<p>Raft offers a generic way to distribute a state machine across a cluster of computing systems, ensuring that each node in the cluster agrees upon the same series of state transitions</p>
+<footer><strong>Wikipedia --</strong><cite><a href="https://en.wikipedia.org/wiki/Raft_(computer_science)" target="_blank" rel="noopener">Raft</a></cite></footer></blockquote>
+<blockquote><p><strong><em>Raft</em></strong> is a distributed consensus protocol.</p>
+<p>Such protocol are used to ensure multiple different nodes-server-always agree on a given set of values.</p>
+<footer><strong>Philip O'Toole --</strong><cite><a href="http://www.slideshare.net/PhilipOToole/rqlite-replicating-sqlite-via-raft-consensu" target="_blank" rel="noopener">Raft</a></cite></footer></blockquote>
+</li>
+</ul>
+<h3 id="SQLite"><a href="#SQLite" class="headerlink" title="SQLite"></a>SQLite</h3><ul>
+<li><p><a href="https://www.sqlite.org/" target="_blank" rel="noopener">Home page</a></p>
+</li>
+<li><p>Description:</p>
+<blockquote><p><strong><em>SQLite</em></strong> is a relational database management system contained in a C programming library. In contrast to many other database management systems, SQLite is not a client–server database engine. Rather, it is embedded into the end program.</p>
+<p>SQLite is ACID-compliant and implements most of the SQL standard, using a dynamically and weakly typed SQL syntax that does not guarantee the domain integrity.[5]</p>
+<p>SQLite is a popular choice as embedded database software for local/client storage in application software such as web browsers. It is arguably the most widely deployed database engine, as it is used today by several widespread browsers, operating systems, and embedded systems (such as mobile phones), among others.[6] SQLite has bindings to many programming languages.</p>
+<footer><strong>Wikipedia --</strong><cite><a href="https://en.wikipedia.org/wiki/SQLite" target="_blank" rel="noopener">SQLite</a></cite></footer></blockquote>
+</li>
+</ul>
+<h2 id="HOW-The-architecture-of-RQLite"><a href="#HOW-The-architecture-of-RQLite" class="headerlink" title="HOW (The architecture of RQLite)"></a>HOW (The architecture of RQLite)</h2><p>What’s the architecture of this project?</p>
+<p>—Diagram comes from the documentation of rqlite—</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐    ┌ ─ ─ ─ ─ ┐</span><br><span class="line">            Clients                   Other</span><br><span class="line">└ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘    │  Nodes  │</span><br><span class="line">               │                    ─ ─ ─ ─ ─</span><br><span class="line">               │                        ▲</span><br><span class="line">               │                        │</span><br><span class="line">               │                        │</span><br><span class="line">               ▼                        ▼</span><br><span class="line">┌─────────────────────────────┐ ┌───────────────┐</span><br><span class="line">│           HTTP(S)           │ │      TCP      │</span><br><span class="line">└─────────────────────────────┘ └───────────────┘</span><br><span class="line">┌───────────────────────────────────────────────┐</span><br><span class="line">│             Raft (hashicorp/raft)             │</span><br><span class="line">└───────────────────────────────────────────────┘</span><br><span class="line">┌───────────────────────────────────────────────┐</span><br><span class="line">│               matt-n/go-sqlite3               │</span><br><span class="line">└───────────────────────────────────────────────┘</span><br><span class="line">┌───────────────────────────────────────────────┐</span><br><span class="line">│                   sqlite3.c                   │</span><br><span class="line">└───────────────────────────────────────────────┘</span><br><span class="line">┌───────────────────────────────────────────────┐</span><br><span class="line">│                 RAM or disk                   │</span><br><span class="line">└───────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+<p>—The structure of code of RQLite.—</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">├── auth</span><br><span class="line">│   ├── credential_store.go</span><br><span class="line">│   └── credential_store_test.go</span><br><span class="line">├── CHANGELOG.md</span><br><span class="line">├── circle.yml</span><br><span class="line">├── cluster</span><br><span class="line">│   ├── service.go</span><br><span class="line">│   └── service_test.go</span><br><span class="line">├── cmd</span><br><span class="line">│   ├── rqlite</span><br><span class="line">│   │   ├── execute.go</span><br><span class="line">│   │   ├── main.go</span><br><span class="line">│   │   ├── query.go</span><br><span class="line">│   │   └── README.md</span><br><span class="line">│   └── rqlited</span><br><span class="line">│       └── main.go</span><br><span class="line">├── CONTRIBUTING.md</span><br><span class="line">├── db</span><br><span class="line">│   ├── db.go</span><br><span class="line">│   └── db_test.go</span><br><span class="line">├── doc</span><br><span class="line">│   ├── BACKUPS.md</span><br><span class="line">│   ├── CLI.md</span><br><span class="line">│   ├── CLUSTER_MGMT.md</span><br><span class="line">│   ├── CONSISTENCY.md</span><br><span class="line">│   ├── DESIGN.md</span><br><span class="line">│   ├── DIAGNOSTICS.md</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   └── SECURITY.md</span><br><span class="line">├── doc.go</span><br><span class="line">├── gen_artifacts.sh</span><br><span class="line">├── gofmt.sh</span><br><span class="line">├── http</span><br><span class="line">│   ├── service.go</span><br><span class="line">│   └── service_test.go</span><br><span class="line">├── LICENSE</span><br><span class="line">├── package.sh</span><br><span class="line">├── README.md</span><br><span class="line">├── store</span><br><span class="line">│   ├── store.go</span><br><span class="line">│   └── store_test.go</span><br><span class="line">├── system_test</span><br><span class="line">│   ├── cluster_test.go</span><br><span class="line">│   ├── helpers.go</span><br><span class="line">│   └── single_node_test.go</span><br><span class="line">├── tcp</span><br><span class="line">│   ├── doc.go</span><br><span class="line">│   ├── mux.go</span><br><span class="line">│   └── mux_test.go</span><br><span class="line">├── Vagrantfile</span><br><span class="line">└── vagrant_setup.sh</span><br></pre></td></tr></table></figure>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>The above texts are the basic information of RQLite. Next post, we will focus on <a href="https://github.com/hashicorp/raft" target="_blank" rel="noopener">hashicorp/raft
+</a>. Understand how to use the library and how to integrate with SQLite.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h1><ul>
+<li><a href="http://www.slideshare.net/PhilipOToole/rqlite-replicating-sqlite-via-raft-consensu" target="_blank" rel="noopener">rqlite Replicating SQLite via Raft Consensu</a></li>
+<li><a href="https://sqlite.org/whentouse.html" target="_blank" rel="noopener">SQLite use case</a></li>
+</ul>
+<p>@credit image from <a href="https://github.com/rqlite/rqlite" target="_blank" rel="noopener">rqlite</a></p>
+
+      
+    
+    </div>
+    
+      <div class="post-tags syuanpi fadeInRightShort back-3">
+      
+        <a href="/tags/raft/">raft</a>
+      
+        <a href="/tags/distributed-computing/">distributed_computing</a>
+      
+      </div>
+    
+    
+      
+
+      
+  <hr class="copy-line">
+  <div class="post-copyright">
+    <div class="copy-author">
+      <span>Author :</span>
+      <span>Shih, Wen-Hsiang</span>
+    </div>
+    <div class="copy-url">
+      <span>Url :</span>
+      <a href="http://swhsiang.github.io/2016/09/13/dive-into-rqlite/">http://swhsiang.github.io/2016/09/13/dive-into-rqlite/</a>
+    </div>
+    <div class="copy-origin">
+      <span>Origin :</span>
+      <a href="http://swhsiang.github.io">http://swhsiang.github.io</a>
+    </div>
+    <div class="copy-license">
+      
+      著作权归作者所有，转载请联系作者获得授权。
+    </div>
+  </div>
+
+    
+  </article>
+  
+    
+  <nav class="article-page">
+    
+      <a href="/2016/09/21/thrift-and-golang/" id="art-left" class="art-left">
+        <span class="next-title">
+          <i class="iconfont icon-left"></i>Thrift Quickstart
+        </span>
+      </a>
+    
+    
+  </nav>
+
+
+    
+  <i id="com-switch" class="iconfont icon-down jumping-in long infinite" style="font-size:24px;display:block;text-align:center;transform:rotate(180deg);"></i>
+  <div class="post-comments" id="post-comments" style="display: block;margin: auto 16px;">
+    
+
+    
+    
+
+    
+
+  </div>
+
+
+
+  
+  
+    
+  
+
+
+  
+
+
+        </div>
+      </main>
+      <footer class="footer syuanpi fadeIn" id="footer">
+  <hr>
+  <div class="footer-wrapper">
+    <div class="left">
+      <div class="contact-icon">
+  
+  
+    <a href="https://twitter.com/swhsiang" class="iconfont icon-twitter" title="twitter"></a>
+  
+</div>
+
+    </div>
+    <div class="right">
+      <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span> ~ 2019</span>
+        <span>❤</span>
+        <span>Shih, Wen-Hsiang</span>
+    </div>
+    <div class="theme">
+        <span>
+            Powered by
+            <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo </a>
+        </span>
+        <span>
+            Theme
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+</div>
+
+    </div>
+  </div>
+</footer>
+    </div>
+    <div class="tagcloud" id="tagcloud">
+  <div class="tagcloud-taglist">
+  
+    <div class="tagcloud-tag">
+      <button>startup</button>
+    </div>
+  
+    <div class="tagcloud-tag">
+      <button>docker</button>
+    </div>
+  
+    <div class="tagcloud-tag">
+      <button>raft</button>
+    </div>
+  
+    <div class="tagcloud-tag">
+      <button>distributed_computing</button>
+    </div>
+  
+  </div>
+  
+    <div class="tagcloud-postlist active">
+      <h2>startup</h2>
+      
+    </div>
+  
+    <div class="tagcloud-postlist ">
+      <h2>docker</h2>
+      
+    </div>
+  
+    <div class="tagcloud-postlist ">
+      <h2>raft</h2>
+      
+        <div class="tagcloud-post">
+          <a href="/2016/09/13/dive-into-rqlite/">
+            <time class="tagcloud-posttime">2016 / 09 / 14</time>
+            <span>Dive into rqlite 1</span>
+          </a>
+        </div>
+      
+    </div>
+  
+    <div class="tagcloud-postlist ">
+      <h2>distributed_computing</h2>
+      
+        <div class="tagcloud-post">
+          <a href="/2016/09/13/dive-into-rqlite/">
+            <time class="tagcloud-posttime">2016 / 09 / 14</time>
+            <span>Dive into rqlite 1</span>
+          </a>
+        </div>
+      
+    </div>
+  
+</div>
+
+  </div>
+  <div class="backtop syuanpi melt toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+
+  <div class="search" id="search">
+    <div class="input">
+      <input type="text" id="search-input" placeholder="search" autofocus>
+    </div>
+    <div id="search-result"></div>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script></script>
+  <script src="/script/lib/lightbox/js/lightbox.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/script/scheme/banderole.js"></script>
+
+
+<script src="/script/bootstarp.js"></script>
+
+
+<script>
+if (nlviconfig.theme.toc) {
+  setTimeout(function() {
+    if (nlviconfig.theme.scheme === 'balance') {
+      $("#header").addClass("show_toc");
+    } else if (nlviconfig.theme.scheme === 'banderole') {
+      $(".container-inner").addClass("has_toc");
+      $(".post-toc .title").addClass("show");
+      $(".toc-inner").addClass("show");
+    }
+  }, 1000);
+}
+</script>
+
+
+
+</body>
+</html>
