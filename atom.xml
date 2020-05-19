@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://swhsiang.github.io/"/>
-  <updated>2020-04-18T07:39:45.652Z</updated>
+  <updated>2020-05-19T23:19:12.047Z</updated>
   <id>http://swhsiang.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>It&#39;s Time To Build My Future</title>
+    <link href="http://swhsiang.github.io/2020/04/25/goals-for-2020/"/>
+    <id>http://swhsiang.github.io/2020/04/25/goals-for-2020/</id>
+    <published>2020-04-25T16:13:19.000Z</published>
+    <updated>2020-05-19T23:19:12.047Z</updated>
+    
+    <content type="html"><![CDATA[<p>Few weeks ago, a16z published an article addressing the circumstance and they are arguing people should start considering the post-pandemic world and preparing for it. </p><p>The article is inspiring, though it did not point out what specific industries or fields need to improve (or evolve).</p><p>It’s been a though year since the beginning of 2020. The outbreak of COVID-19 has caused thousands of thousands people died and millions of millions of people lost their jobs.</p><p>I guess the most desired dream in 2020 is to stay healthy.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Few weeks ago, a16z published an article addressing the circumstance and they are arguing people should start considering the post-pandem
+      
+    
+    </summary>
+    
+    
+      <category term="2020,growth,goals" scheme="http://swhsiang.github.io/tags/2020-growth-goals/"/>
+    
+  </entry>
   
   <entry>
     <title>Thrift Quickstart</title>
